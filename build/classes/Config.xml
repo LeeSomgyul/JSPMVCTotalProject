@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- Connectoion + VO + SQL문장  -->
+<configuration>
+  
+   <!-- 1. VO 등록  -->
+    <typeAliases>
+      <typeAlias type="com.sist.vo.SeoulVO" alias="SeoulVO"/>
+    </typeAliases>
+    <!-- 
+      2. Connection 설정 => getConnection() / disConnection()
+     -->
+    <environments default="development">
+      <!-- 
+          (environment+) : +는 반드시 한번이상 사용
+       -->
+      <environment id="development">
+        <!-- 
+           (transactionManager,dataSource) : default는 반드시 한번만 사용
+                               | database의 정보 
+                               | UNPOOLED / POOLED
+                                            | DBCP
+                                 => JDBC (열고 닫기)
+           | => commit / rollback 
+             => JDBC / MANAGE(미리 설정해서 만듬) 
+         -->
+         <transactionManager type="JDBC"/>
+         <dataSource type="POOLED">
+           <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+           <property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
+           <property name="username" value="hr"/>
+           <property name="password" value="happy"/>
+           <!-- 
+             maxActive=8 / maxIdle=8 / maxWait=10000 
+            -->
+         </dataSource>
+      </environment>
+    </environments>
+    <mappers>
+      <mapper resource="com/sist/mapper/seoul-mapper.xml"/>
+    </mappers>
+</configuration>
